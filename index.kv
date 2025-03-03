@@ -1,0 +1,113 @@
+<CustomButton>:
+    label: "default"
+    icon: "language-python"
+    size_hint: 1, 0.13
+    MDBoxLayout:
+        spacing: 50
+        MDIcon:
+            icon: root.icon
+            pos_hint: {"center_y": 0.5}
+        MDLabel:
+            font_size: 19
+            text: f"[b]{root.label}[/b]"
+            markup: True
+            pos_hint: {"center_y": 0.5}
+
+<MDScreen>:
+    MDTopAppBar:
+        title: "My App"
+        md_bg_color: app.theme_cls.accent_color  # Background set to accent color
+        pos_hint: {"top": 1}
+        elevation: 1
+        left_action_items: [["arrow-left", lambda x: app.go_back()]]
+        right_action_items: [["home", lambda x: app.switch_screen("main_screen", self)]]
+
+MDScreenManager:
+    id: screen_manager
+
+    MDScreen:
+        name: "main_screen"
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: 10
+            size_hint_y: 0.9
+
+            MDCard:
+                radius: 36
+                pos_hint: {"center_x": .5}
+                padding: 10
+                size_hint: .9, .7
+                FitImage:
+                    source: "resources/tuition_management_system.jpg"
+                    radius: 36
+
+            MDBoxLayout:
+                orientation: "vertical"
+                md_bg_color: 0.9,0.9,0.9,1
+                spacing: 20
+                radius: 16
+                padding: 14
+
+                CustomButton:
+                    icon: "calendar-check-outline"
+                    label: "Attendance"
+                    on_release: app.switch_screen("attendance", self)
+
+                CustomButton:
+                    icon: "notebook-edit"
+                    label: "Student Records"
+                    on_release: app.switch_screen("student_records", self)
+
+                CustomButton:
+                    icon: "book-account"
+                    label: "Fees Records"
+                    on_release: app.switch_screen("fee_records", self)
+
+    MDScreen:
+        name: "student_records"
+        StudentRecords:
+            id: student_records_widget
+            size_hint: 1, 0.9
+
+        MDFloatingActionButton:
+            icon: "plus"
+            pos_hint: {"x": 0.5, "y": 0.01}
+            on_release: student_records_widget.edit_popup(new_student=True)
+
+    MDScreen:
+        name: "attendance"
+
+        ScrollView:
+            pos_hint: {'top': 0.9}
+            MDBoxLayout:
+                padding: [10, 84, 10, 10]
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 16
+
+                DateSelector:
+                    id: attendance_date
+
+                AttendanceBook:
+
+                    id: students_attendance_btn
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 16
+
+
+    MDScreen:
+        name: "fee_records"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: 0.9
+            StudentFeeDetails:
+                id: student_fee_widget
+                size_hint: 1, 0.6
+
+    Screen:
+        name: "loading_screen"
+        Image:
+            source: "resources/load.gif"
+            anim_delay: 0.05

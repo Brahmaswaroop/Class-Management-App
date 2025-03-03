@@ -1,0 +1,21 @@
+fees record:
+	has a scrollable view.
+	the top is split into two slots with 5 months on each column.
+	the selected button turns blue
+	the part below the months view the students.
+	They are sorted on the basis of those who have not paid the fee placed first and in red color.
+	On touching the student a popup opens with space for date.
+	Confirming it makes the button green.
+
+
+Attendance:
+	In the first part there is a collapsible window with year, month, day and also a today button.
+	There is also an option to view the attendance student wise.
+	on selecting all three options the students are displayed below it with all present and clicking it will mark then absent.
+	After configuring it tap the confirm button at the bottom.
+	This will return the table to default view.
+	on student wise view:	
+		the top has a option to select month and year.
+		A table shown with heading name, present(total), percentage
+		The students appear below it.
+	
